@@ -1,0 +1,114 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0f1724; /* dark navy instead of pure black */
+    --foreground: #e6eef8;
+  }
+}
+
+html, body, #__next {
+  height: 100%;
+}
+
+body {
+  /* soft neutral background to keep gutters light */
+  background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.6;
+}
+
+/* subtle decorative gradient (light) */
+body::before {
+  content: '';
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background: radial-gradient(800px 400px at 10% 8%, rgba(99,102,241,0.04), transparent);
+}
+
+/* Global color tokens */
+:root {
+  --primary-500: #2563eb;
+  --primary-600: #1d4ed8;
+  --muted-300: #e6e9ef;
+  --card-bg: #ffffff;
+  --card-shadow: 0 8px 30px rgba(16,24,40,0.06);
+}
+
+/* Cards */
+.rounded-lg.shadow {
+  background: var(--card-bg);
+  box-shadow: var(--card-shadow);
+  border: 1px solid rgba(16,24,40,0.04);
+}
+
+/* Buttons - refine appearance when tailwind classes used */
+.bg-blue-500 { background-color: var(--primary-500) !important; }
+.bg-blue-600 { background-color: var(--primary-600) !important; }
+.bg-green-500 { background-color: #16a34a !important; }
+.bg-green-600 { background-color: #15803d !important; }
+.bg-red-500 { background-color: #ef4444 !important; }
+.bg-red-600 { background-color: #dc2626 !important; }
+
+.px-6.py-3, .px-4.py-2 { font-weight: 600; }
+
+/* Modal overlay blur and nicer dialog */
+.fixed.inset-0.bg-black.bg-opacity-50 {
+  backdrop-filter: blur(4px);
+}
+
+.fixed .bg-white.rounded-lg.p-6 {
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 20px 50px rgba(2,6,23,0.2);
+  max-width: 520px;
+}
+
+/* Inputs */
+input[type="text"], input[type="email"], textarea {
+  border: 1px solid rgba(16,24,40,0.08);
+  padding: 10px 12px;
+  border-radius: 8px;
+  outline: none;
+  transition: box-shadow .15s ease, border-color .15s ease;
+}
+input[type="text"]:focus, input[type="email"]:focus, textarea:focus {
+  box-shadow: 0 6px 18px rgba(37,99,235,0.12);
+  border-color: var(--primary-500);
+}
+
+/* Table styling */
+table { border-collapse: collapse; }
+thead tr { background: linear-gradient(180deg, rgba(249,250,252,1), rgba(241,245,249,1)); }
+th { color: #374151; }
+tbody tr:hover { background: #fbfdff; }
+td.p-4 { vertical-align: middle; }
+
+/* Empty state card */
+.bg-white.rounded-lg.shadow.p-12 { padding: 3rem; }
+
+/* Small screens adjustments */
+@media (max-width: 640px) {
+  .max-w-6xl { padding-left: 1rem; padding-right: 1rem; }
+  h1.text-4xl { font-size: 1.75rem; }
+}
+
