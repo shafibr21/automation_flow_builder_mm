@@ -106,50 +106,48 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-[#F8F9FB]">
       <div className="max-w-6xl mx-auto p-8">
-        <div className="flex justify-between items-center mb-8">
+        <div className="flex justify-between items-center mb-6">
           <div>
-            <h1 className="text-4xl font-bold text-gray-900">Automation Flow Builder</h1>
-            <p className="text-gray-600 mt-2">Create and manage email automation flows</p>
+            <h1 className="text-2xl font-semibold text-gray-900">Automations</h1>
           </div>
-          <Button onClick={() => setShowCreateDialog(true)} className="font-bold" size="lg">
-            + New Automation
+          <Button onClick={() => setShowCreateDialog(true)}>
+            Create Automation
           </Button>
         </div>
 
         {automations.length === 0 ? (
-          <div className="bg-white rounded-lg shadow p-12 text-center">
-            <div className="text-6xl mb-4">🤖</div>
-            <h2 className="text-2xl font-bold text-gray-700 mb-2">No automations yet</h2>
-            <p className="text-gray-500 mb-6">Create your first automation to get started</p>
+          <div className="bg-white rounded-lg border border-gray-200 p-12 text-center">
+            <h2 className="text-lg font-medium text-gray-900 mb-2">No automations yet</h2>
+            <p className="text-sm text-gray-500 mb-6">Create your first automation to get started</p>
             <Button onClick={() => setShowCreateDialog(true)}>Create Automation</Button>
           </div>
         ) : (
-          <div className="bg-white rounded-lg shadow overflow-hidden">
+          <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
             <table className="w-full">
-              <thead className="bg-gray-100">
+              <thead className="bg-gray-50 border-b border-gray-200">
                 <tr>
-                  <th className="text-left p-4 font-bold">Name</th>
-                  <th className="text-left p-4 font-bold">Created</th>
-                  <th className="text-left p-4 font-bold">Updated</th>
-                  <th className="text-right p-4 font-bold">Actions</th>
+                  <th className="text-left px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+                  <th className="text-left px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Created</th>
+                  <th className="text-left px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Updated</th>
+                  <th className="text-right px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody className="divide-y divide-gray-200">
                 {automations.map((automation) => (
-                  <tr key={automation._id} className="border-t hover:bg-gray-50">
-                    <td className="p-4 font-medium">{automation.name}</td>
-                    <td className="p-4 text-gray-600 text-sm">
+                  <tr key={automation._id} className="hover:bg-gray-50 transition-colors">
+                    <td className="px-6 py-4 font-medium text-gray-900">{automation.name}</td>
+                    <td className="px-6 py-4 text-sm text-gray-500">
                       {new Date(automation.createdAt).toLocaleDateString()}
                     </td>
-                    <td className="p-4 text-gray-600 text-sm">
+                    <td className="px-6 py-4 text-sm text-gray-500">
                       {new Date(automation.updatedAt).toLocaleDateString()}
                     </td>
-                    <td className="p-4 text-right space-x-2">
+                    <td className="px-6 py-4 text-right space-x-2">
                       <Button onClick={() => router.push(`/automations/${automation._id}`)} size="sm" variant="secondary">Edit</Button>
-                      <Button onClick={() => setTestDialog({ show: true, automation })} size="sm" variant="success">Test</Button>
-                      <Button onClick={() => handleDelete(automation._id, automation.name)} size="sm" variant="danger">Delete</Button>
+                      <Button onClick={() => setTestDialog({ show: true, automation })} size="sm" variant="secondary">Test</Button>
+                      <Button onClick={() => handleDelete(automation._id, automation.name)} size="sm" variant="secondary">Delete</Button>
                     </td>
                   </tr>
                 ))}
@@ -161,16 +159,16 @@ export default function Home() {
 
       {/* Create Dialog */}
       {showCreateDialog && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-lg p-6 max-w-md w-full">
-            <h2 className="text-2xl font-bold mb-4">Create New Automation</h2>
-            <div className="mb-4">
-              <label className="block text-sm font-medium mb-2">Automation Name *</label>
+        <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center p-4 z-50">
+          <div className="bg-white rounded-lg p-6 max-w-md w-full border border-gray-200 shadow-lg">
+            <h2 className="text-lg font-semibold mb-4 text-gray-900">Create New Automation</h2>
+            <div className="mb-5">
+              <label className="block text-sm font-medium mb-2 text-gray-700">Automation Name <span className="text-red-500">*</span></label>
               <input
                 type="text"
                 value={newName}
                 onChange={(e) => setNewName(e.target.value)}
-                className="w-full border rounded p-2"
+                className="w-full"
                 placeholder="e.g., Welcome Email Flow"
                 autoFocus
               />
@@ -196,19 +194,19 @@ export default function Home() {
 
       {/* Test Dialog */}
       {testDialog.show && testDialog.automation && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-lg p-6 max-w-md w-full">
-            <h2 className="text-2xl font-bold mb-4">Test Automation</h2>
-            <p className="text-gray-600 mb-4">
-              Testing: <strong>{testDialog.automation.name}</strong>
+        <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center p-4 z-50">
+          <div className="bg-white rounded-lg p-6 max-w-md w-full border border-gray-200 shadow-lg">
+            <h2 className="text-lg font-semibold mb-4 text-gray-900">Test Automation</h2>
+            <p className="text-sm text-gray-600 mb-4">
+              Testing: <strong className="text-gray-900">{testDialog.automation.name}</strong>
             </p>
-            <div className="mb-4">
-              <label className="block text-sm font-medium mb-2">Test Email Address *</label>
+            <div className="mb-5">
+              <label className="block text-sm font-medium mb-2 text-gray-700">Test Email Address <span className="text-red-500">*</span></label>
               <input
                 type="email"
                 value={testEmail}
                 onChange={(e) => setTestEmail(e.target.value)}
-                className="w-full border rounded p-2"
+                className="w-full"
                 placeholder="test@example.com"
                 autoFocus
               />
@@ -224,7 +222,7 @@ export default function Home() {
               >
                 Cancel
               </Button>
-              <Button onClick={handleTest} disabled={!testEmail.trim()} className="flex-1" variant="success">
+              <Button onClick={handleTest} disabled={!testEmail.trim()} className="flex-1">
                 Start Test
               </Button>
             </div>

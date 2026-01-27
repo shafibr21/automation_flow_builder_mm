@@ -167,9 +167,9 @@ export default function FlowEditor({ automationId, initialData, onSave }: FlowEd
     }, []);
 
     return (
-        <div className="flex h-screen">
+        <div className="flex h-full">
             {/* Main canvas */}
-            <div className="flex-1 relative">
+            <div className="flex-1 relative bg-gray-50">
                 <ReactFlow
                     nodes={nodes}
                     edges={edges}
@@ -181,29 +181,38 @@ export default function FlowEditor({ automationId, initialData, onSave }: FlowEd
                     nodeTypes={nodeTypes}
                     fitView
                 >
-                        <Background />
+                        <Background color="#e5e7eb" gap={16} />
                         <Controls />
-                        <MiniMap style={{ right: 16, bottom: 120, background: 'transparent', width: 140, height: 88 }} />
+                        <MiniMap 
+                            style={{ 
+                                right: 16, 
+                                bottom: 16, 
+                                background: '#ffffff', 
+                                border: '1px solid #e5e7eb',
+                                borderRadius: '6px'
+                            }} 
+                            nodeColor="#d1d5db"
+                        />
                 </ReactFlow>
 
                 {/* Floating toolbar */}
-                <div className="absolute top-4 left-4 bg-white rounded-lg shadow-lg p-4 space-y-3" style={{ minWidth: 160 }}>
-                    <h3 className="font-bold text-sm mb-1">Add Node</h3>
-                    <Button onClick={() => addNode('action')} className="w-full" size="sm">📧 Email Action</Button>
-                    <Button onClick={() => addNode('delay')} className="w-full" size="sm" variant="ghost">⏰ Delay</Button>
-                    <Button onClick={() => addNode('condition')} className="w-full" size="sm" variant="ghost">🔀 Condition</Button>
+                <div className="absolute top-4 left-4 bg-white rounded-lg border border-gray-200 p-3 space-y-2 shadow-sm" style={{ minWidth: 160 }}>
+                    <h3 className="font-medium text-xs text-gray-500 uppercase tracking-wide mb-2">Add Node</h3>
+                    <Button onClick={() => addNode('action')} className="w-full" size="sm" variant="secondary">Email Action</Button>
+                    <Button onClick={() => addNode('delay')} className="w-full" size="sm" variant="secondary">Delay</Button>
+                    <Button onClick={() => addNode('condition')} className="w-full" size="sm" variant="secondary">Condition</Button>
                 </div>
 
                 {/* Save button */}
-                <div className="absolute bottom-6 right-24 z-50">
-                    <Button onClick={handleSave} disabled={isSaving} variant="success" size="lg">
+                <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 z-50">
+                    <Button onClick={handleSave} disabled={isSaving} size="lg">
                         {isSaving ? 'Saving...' : 'Save Flow'}
                     </Button>
                 </div>
             </div>
 
             {/* Right sidebar */}
-            <div className="w-80 bg-gray-50 border-l overflow-y-auto">
+            <div className="w-80 bg-white border-l border-gray-200 overflow-y-auto">
                 {selectedNode ? (
                     <div>
                         {selectedNode.type === 'action' && (
@@ -224,16 +233,17 @@ export default function FlowEditor({ automationId, initialData, onSave }: FlowEd
                                 onUpdate={(data) => updateNodeData(selectedNode.id, data)}
                             />
                         )}
-                        <div className="p-4 border-t">
-                            <Button onClick={deleteSelectedNode} variant="danger" className="w-full">Delete Node</Button>
+                        <div className="p-4 border-t border-gray-200">
+                            <Button onClick={deleteSelectedNode} variant="secondary" className="w-full">Delete Node</Button>
                         </div>
                     </div>
                 ) : (
-                    <div className="p-4 text-gray-500 text-sm">
-                        <p>Select a node to configure it</p>
-                        <div className="mt-4 space-y-2 text-xs">
-                            <p className="font-bold">Tips:</p>
-                            <ul className="list-disc list-inside space-y-1">
+                    <div className="p-6 text-gray-500 text-sm">
+                        <p className="text-gray-900 font-medium mb-3">No node selected</p>
+                        <p className="mb-4">Select a node to configure it</p>
+                        <div className="space-y-2 text-xs">
+                            <p className="font-medium text-gray-700">Tips:</p>
+                            <ul className="list-disc list-inside space-y-1 text-gray-600">
                                 <li>Drag nodes to reposition</li>
                                 <li>Click nodes to configure</li>
                                 <li>Connect nodes by dragging from handles</li>
