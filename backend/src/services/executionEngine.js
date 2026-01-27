@@ -53,8 +53,9 @@ export async function executeAutomation(executionId) {
             throw new Error('Start node not found');
         }
 
-        // Begin execution from start node
-        let currentNodeId = startNode.id;
+        // Begin execution from saved current node if present (resume), otherwise from start node
+        // Use the persisted execution.currentNodeId so resumed executions continue where they left off.
+        let currentNodeId = execution.currentNodeId || startNode.id;
 
         while (currentNodeId) {
             const node = automation.nodes.find(n => n.id === currentNodeId);
@@ -258,24 +259,44 @@ async function scheduleExecution(executionId, currentNodeId, delayMs) {
     const timeoutId = setTimeout(async () => {
         console.log(`⏰ Resuming execution ${executionId}`);
 
-        // Move to next node after delay
-        const execution = await TestExecution.findById(executionId);
-        const automation = await Automation.findById(execution.automationId);
-        const graph = buildGraph(automation.nodes, automation.edges);
+        try {
+            // Move to next node after delay
+            const execution = await TestExecution.findById(executionId);
+            if (!execution) {
+                console.warn(`⚠️ Execution ${executionId} no longer exists; clearing scheduled job.`);
+                scheduledJobs.delete(executionId);
+                return;
+            }
 
-        // Find next node after the delay node
-        const nextEdge = graph.edges.find(e => e.source === currentNodeId);
-        if (nextEdge) {
-            // Update current node to next node
-            await TestExecution.findByIdAndUpdate(executionId, {
-                currentNodeId: nextEdge.target,
-                scheduledFor: null
-            });
+            const automation = await Automation.findById(execution.automationId);
+            if (!automation) {
+                console.warn(`⚠️ Automation ${execution.automationId} not found for execution ${executionId}; clearing scheduled job.`);
+                // Mark execution as failed so it doesn't stay pending indefinitely
+                await TestExecution.findByIdAndUpdate(executionId, { status: 'failed', scheduledFor: null, completedAt: new Date() });
+                scheduledJobs.delete(executionId);
+                return;
+            }
+
+            const graph = buildGraph(automation.nodes, automation.edges);
+
+            // Find next node after the delay node
+            const nextEdge = graph.edges.find(e => e.source === currentNodeId);
+            if (nextEdge) {
+                // Update current node to next node
+                await TestExecution.findByIdAndUpdate(executionId, {
+                    currentNodeId: nextEdge.target,
+                    scheduledFor: null
+                });
+            }
+
+            // Continue execution
+            await executeAutomation(executionId);
+        } catch (err) {
+            console.error(`Error while resuming execution ${executionId}:`, err);
+            // Make sure scheduledJobs is cleaned up
+        } finally {
+            scheduledJobs.delete(executionId);
         }
-
-        // Continue execution
-        await executeAutomation(executionId);
-        scheduledJobs.delete(executionId);
     }, delayMs);
 
     scheduledJobs.set(executionId, timeoutId);

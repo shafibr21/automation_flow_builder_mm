@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import FlowEditor from '@/components/FlowEditor';
+import Button from '@/components/ui/Button';
 import { apiClient } from '@/lib/api';
 import { Automation } from '@/lib/types';
 import { Node, Edge } from '@xyflow/react';
@@ -69,27 +70,37 @@ export default function AutomationEditorPage() {
     }
 
     return (
-        <div className="h-screen flex flex-col">
-            <div className="bg-white border-b px-6 py-4 flex justify-between items-center">
-                <div>
-                    <button
-                        onClick={() => router.push('/')}
-                        className="text-blue-500 hover:text-blue-700 mb-2 text-sm"
-                    >
-                        ← Back to Automations
-                    </button>
-                    <h1 className="text-2xl font-bold">{automation.name}</h1>
+        <div className="h-screen flex flex-col bg-gray-50">
+            <div className="bg-transparent">
+                <div className="max-w-6xl mx-auto px-6 py-6">
+                    <div className="bg-white rounded-lg shadow-sm border px-5 py-4 flex items-center justify-between">
+                        <div>
+                            <div className="flex items-center gap-3">
+                                <Button variant="ghost" size="sm" onClick={() => router.push('/')}>← Back</Button>
+                                <h1 className="text-2xl font-bold">{automation.name}</h1>
+                            </div>
+                            <p className="text-sm text-gray-500 mt-1">Edit and save your automation flow</p>
+                        </div>
+                        <div className="flex items-center gap-3">
+                            <Button variant="secondary" size="sm" onClick={() => window.location.reload()}>Preview</Button>
+                        </div>
+                    </div>
                 </div>
             </div>
+
             <div className="flex-1">
-                <FlowEditor
-                    automationId={automationId}
-                    initialData={{
-                        nodes: automation.nodes as Node[],
-                        edges: automation.edges as Edge[]
-                    }}
-                    onSave={handleSave}
-                />
+                <div className="max-w-6xl mx-auto px-6 py-6 h-full">
+                    <div className="h-full bg-white rounded-lg shadow-sm border overflow-hidden">
+                        <FlowEditor
+                            automationId={automationId}
+                            initialData={{
+                                nodes: automation.nodes as Node[],
+                                edges: automation.edges as Edge[]
+                            }}
+                            onSave={handleSave}
+                        />
+                    </div>
+                </div>
             </div>
         </div>
     );

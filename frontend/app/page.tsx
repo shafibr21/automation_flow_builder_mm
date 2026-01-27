@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { apiClient } from '@/lib/api';
 import { Automation } from '@/lib/types';
+import Button from '@/components/ui/Button';
 
 export default function Home() {
   const router = useRouter();
@@ -112,12 +113,9 @@ export default function Home() {
             <h1 className="text-4xl font-bold text-gray-900">Automation Flow Builder</h1>
             <p className="text-gray-600 mt-2">Create and manage email automation flows</p>
           </div>
-          <button
-            onClick={() => setShowCreateDialog(true)}
-            className="bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600 font-bold"
-          >
+          <Button onClick={() => setShowCreateDialog(true)} className="font-bold" size="lg">
             + New Automation
-          </button>
+          </Button>
         </div>
 
         {automations.length === 0 ? (
@@ -125,12 +123,7 @@ export default function Home() {
             <div className="text-6xl mb-4">🤖</div>
             <h2 className="text-2xl font-bold text-gray-700 mb-2">No automations yet</h2>
             <p className="text-gray-500 mb-6">Create your first automation to get started</p>
-            <button
-              onClick={() => setShowCreateDialog(true)}
-              className="bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600"
-            >
-              Create Automation
-            </button>
+            <Button onClick={() => setShowCreateDialog(true)}>Create Automation</Button>
           </div>
         ) : (
           <div className="bg-white rounded-lg shadow overflow-hidden">
@@ -154,24 +147,9 @@ export default function Home() {
                       {new Date(automation.updatedAt).toLocaleDateString()}
                     </td>
                     <td className="p-4 text-right space-x-2">
-                      <button
-                        onClick={() => router.push(`/automations/${automation._id}`)}
-                        className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 text-sm"
-                      >
-                        Edit
-                      </button>
-                      <button
-                        onClick={() => setTestDialog({ show: true, automation })}
-                        className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 text-sm"
-                      >
-                        Test
-                      </button>
-                      <button
-                        onClick={() => handleDelete(automation._id, automation.name)}
-                        className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 text-sm"
-                      >
-                        Delete
-                      </button>
+                      <Button onClick={() => router.push(`/automations/${automation._id}`)} size="sm" variant="secondary">Edit</Button>
+                      <Button onClick={() => setTestDialog({ show: true, automation })} size="sm" variant="success">Test</Button>
+                      <Button onClick={() => handleDelete(automation._id, automation.name)} size="sm" variant="danger">Delete</Button>
                     </td>
                   </tr>
                 ))}
@@ -198,22 +176,19 @@ export default function Home() {
               />
             </div>
             <div className="flex gap-2">
-              <button
+              <Button
                 onClick={() => {
                   setShowCreateDialog(false);
                   setNewName('');
                 }}
-                className="flex-1 bg-gray-200 text-gray-700 py-2 rounded hover:bg-gray-300"
+                variant="secondary"
+                className="flex-1"
               >
                 Cancel
-              </button>
-              <button
-                onClick={handleCreate}
-                disabled={!newName.trim() || creating}
-                className="flex-1 bg-blue-500 text-white py-2 rounded hover:bg-blue-600 disabled:bg-gray-300"
-              >
+              </Button>
+              <Button onClick={handleCreate} disabled={!newName.trim() || creating} className="flex-1">
                 {creating ? 'Creating...' : 'Create'}
-              </button>
+              </Button>
             </div>
           </div>
         </div>
@@ -239,22 +214,19 @@ export default function Home() {
               />
             </div>
             <div className="flex gap-2">
-              <button
+              <Button
                 onClick={() => {
                   setTestDialog({ show: false });
                   setTestEmail('');
                 }}
-                className="flex-1 bg-gray-200 text-gray-700 py-2 rounded hover:bg-gray-300"
+                variant="secondary"
+                className="flex-1"
               >
                 Cancel
-              </button>
-              <button
-                onClick={handleTest}
-                disabled={!testEmail.trim()}
-                className="flex-1 bg-green-500 text-white py-2 rounded hover:bg-green-600 disabled:bg-gray-300"
-              >
+              </Button>
+              <Button onClick={handleTest} disabled={!testEmail.trim()} className="flex-1" variant="success">
                 Start Test
-              </button>
+              </Button>
             </div>
           </div>
         </div>

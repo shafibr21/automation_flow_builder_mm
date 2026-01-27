@@ -17,6 +17,7 @@ import {
 import '@xyflow/react/dist/style.css';
 import { StartNode, EndNode, ActionNode, DelayNode, ConditionNode } from './nodes/CustomNodes';
 import { ActionPanel, DelayPanel, ConditionPanel } from './panels/ConfigPanels';
+import Button from './ui/Button';
 
 const nodeTypes = {
     start: StartNode,
@@ -180,43 +181,24 @@ export default function FlowEditor({ automationId, initialData, onSave }: FlowEd
                     nodeTypes={nodeTypes}
                     fitView
                 >
-                    <Background />
-                    <Controls />
-                    <MiniMap />
+                        <Background />
+                        <Controls />
+                        <MiniMap style={{ right: 16, bottom: 120, background: 'transparent', width: 140, height: 88 }} />
                 </ReactFlow>
 
                 {/* Floating toolbar */}
-                <div className="absolute top-4 left-4 bg-white rounded-lg shadow-lg p-4 space-y-2">
-                    <h3 className="font-bold text-sm mb-2">Add Node</h3>
-                    <button
-                        onClick={() => addNode('action')}
-                        className="w-full bg-blue-500 text-white px-4 py-2 rounded text-sm hover:bg-blue-600"
-                    >
-                        📧 Email Action
-                    </button>
-                    <button
-                        onClick={() => addNode('delay')}
-                        className="w-full bg-purple-500 text-white px-4 py-2 rounded text-sm hover:bg-purple-600"
-                    >
-                        ⏰ Delay
-                    </button>
-                    <button
-                        onClick={() => addNode('condition')}
-                        className="w-full bg-yellow-500 text-white px-4 py-2 rounded text-sm hover:bg-yellow-600"
-                    >
-                        🔀 Condition
-                    </button>
+                <div className="absolute top-4 left-4 bg-white rounded-lg shadow-lg p-4 space-y-3" style={{ minWidth: 160 }}>
+                    <h3 className="font-bold text-sm mb-1">Add Node</h3>
+                    <Button onClick={() => addNode('action')} className="w-full" size="sm">📧 Email Action</Button>
+                    <Button onClick={() => addNode('delay')} className="w-full" size="sm" variant="ghost">⏰ Delay</Button>
+                    <Button onClick={() => addNode('condition')} className="w-full" size="sm" variant="ghost">🔀 Condition</Button>
                 </div>
 
                 {/* Save button */}
-                <div className="absolute bottom-4 right-4">
-                    <button
-                        onClick={handleSave}
-                        disabled={isSaving}
-                        className="bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg hover:bg-green-600 disabled:bg-gray-300 font-bold"
-                    >
+                <div className="absolute bottom-6 right-24 z-50">
+                    <Button onClick={handleSave} disabled={isSaving} variant="success" size="lg">
                         {isSaving ? 'Saving...' : 'Save Flow'}
-                    </button>
+                    </Button>
                 </div>
             </div>
 
@@ -243,12 +225,7 @@ export default function FlowEditor({ automationId, initialData, onSave }: FlowEd
                             />
                         )}
                         <div className="p-4 border-t">
-                            <button
-                                onClick={deleteSelectedNode}
-                                className="w-full bg-red-500 text-white py-2 rounded hover:bg-red-600"
-                            >
-                                Delete Node
-                            </button>
+                            <Button onClick={deleteSelectedNode} variant="danger" className="w-full">Delete Node</Button>
                         </div>
                     </div>
                 ) : (
