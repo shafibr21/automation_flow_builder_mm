@@ -70,37 +70,29 @@ export default function AutomationEditorPage() {
     }
 
     return (
-        <div className="h-screen flex flex-col bg-gray-50">
-            <div className="bg-transparent">
-                <div className="max-w-6xl mx-auto px-6 py-6">
-                    <div className="bg-white rounded-lg shadow-sm border px-5 py-4 flex items-center justify-between">
-                        <div>
-                            <div className="flex items-center gap-3">
-                                <Button variant="ghost" size="sm" onClick={() => router.push('/')}>← Back</Button>
-                                <h1 className="text-2xl font-bold">{automation.name}</h1>
-                            </div>
-                            <p className="text-sm text-gray-500 mt-1">Edit and save your automation flow</p>
-                        </div>
-                        <div className="flex items-center gap-3">
-                            <Button variant="secondary" size="sm" onClick={() => window.location.reload()}>Preview</Button>
+        <div className="h-screen flex flex-col bg-[#F8F9FB]">
+            <div className="border-b border-gray-200 bg-white">
+                <div className="max-w-full px-6 py-4">
+                    <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-4">
+                            <Button variant="secondary" size="sm" onClick={() => router.push('/')}>
+                                ← Back
+                            </Button>
+                            <h1 className="text-lg font-semibold text-gray-900">{automation.name}</h1>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div className="flex-1">
-                <div className="max-w-6xl mx-auto px-6 py-6 h-full">
-                    <div className="h-full bg-white rounded-lg shadow-sm border overflow-hidden">
-                        <FlowEditor
-                            automationId={automationId}
-                            initialData={{
-                                nodes: automation.nodes as Node[],
-                                edges: automation.edges as Edge[]
-                            }}
-                            onSave={handleSave}
-                        />
-                    </div>
-                </div>
+            <div className="flex-1 overflow-hidden">
+                <FlowEditor
+                    automationId={automationId}
+                    initialData={{
+                        nodes: automation.nodes as Node[],
+                        edges: automation.edges as Edge[]
+                    }}
+                    onSave={handleSave}
+                />
             </div>
         </div>
     );
