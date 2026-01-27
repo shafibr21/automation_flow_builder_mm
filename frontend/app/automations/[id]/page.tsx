@@ -80,11 +80,6 @@ export default function AutomationEditorPage() {
                             </Button>
                             <h1 className="text-lg font-semibold text-gray-900">{automation.name}</h1>
                         </div>
-                        <div className="flex items-center gap-3">
-                            <Button variant="secondary" size="sm" onClick={() => window.location.reload()}>
-                                Test
-                            </Button>
-                        </div>
                     </div>
                 </div>
             </div>

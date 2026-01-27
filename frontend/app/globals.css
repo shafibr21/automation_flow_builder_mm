@@ -74,13 +74,6 @@ table {
   border-collapse: collapse; 
   width: 100%;
 }
-thead tr { background: linear-gradient(180deg, rgba(249,250,252,1), rgba(241,245,249,1)); }
-th { color: #374151; }
-tbody tr:hover { background: #fbfdff; }
-td.p-4 { vertical-align: middle; }
-
-/* Empty state card */
-.bg-white.rounded-lg.shadow.p-12 { padding: 3rem; }
 
 /* Small screens adjustments */
 @media (max-width: 640px) {
