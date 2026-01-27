@@ -16,18 +16,18 @@ export function ActionPanel({ data, onUpdate }: ActionPanelProps) {
 
     return (
         <div className="p-6 space-y-4">
-            <h3 className="font-semibold text-base text-gray-900">Email Action</h3>
+            <h3 className="font-semibold text-base font-sans text-gray-900">Email Action</h3>
             <div>
-                <label className="block text-sm font-medium mb-2 text-gray-700">
+                <label className="block text-sm font-medium mb-2 text-gray-700 font-sans">
                     Email Message <span className="text-red-500">*</span>
                 </label>
                 <textarea
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
-                    className="w-full min-h-[100px] text-sm resize-none"
+                    className="w-full min-h-25 text-black font-sans resize-none"
                     placeholder="Enter the email message to send..."
                 />
-                <p className="text-xs text-gray-500 mt-1">This message will be sent to the recipient.</p>
+                <p className="text-xs text-black font-sans mt-1">This message will be sent to the recipient.</p>
             </div>
             <button
                 onClick={handleSave}
@@ -83,16 +83,15 @@ export function DelayPanel({ data, onUpdate }: DelayPanelProps) {
 
     return (
         <div className="p-6 space-y-4">
-            <h3 className="font-semibold text-base text-gray-900">Delay</h3>
-
+            <h3 className="font-semibold text-base text-gray-900 font-sans">Delay</h3>
             <div>
-                <label className="block text-sm font-medium mb-2 text-gray-700">Delay Mode</label>
+                <label className="block text-sm font-medium mb-2 text-gray-700 font-sans">Delay Mode</label>
                 <div className="flex gap-2 p-1 bg-gray-100 rounded-md">
                     <button
                         onClick={() => setMode('relative')}
                         className={`flex-1 py-2 px-3 rounded text-sm font-medium transition-colors ${mode === 'relative'
-                                ? 'bg-white text-gray-900 shadow-sm'
-                                : 'bg-transparent text-gray-600 hover:text-gray-900'
+                                ? 'bg-white text-gray-900 shadow-sm font-sans'
+                                : 'bg-transparent text-gray-600 hover:text-gray-900 font-sans'
                             }`}
                     >
                         Relative
@@ -100,8 +99,8 @@ export function DelayPanel({ data, onUpdate }: DelayPanelProps) {
                     <button
                         onClick={() => setMode('absolute')}
                         className={`flex-1 py-2 px-3 rounded text-sm font-medium transition-colors ${mode === 'absolute'
-                                ? 'bg-white text-gray-900 shadow-sm'
-                                : 'bg-transparent text-gray-600 hover:text-gray-900'
+                                ? 'bg-white text-gray-900 shadow-sm font-sans'
+                                : 'bg-transparent text-gray-600 hover:text-gray-900 font-sans'
                             }`}
                     >
                         Absolute
@@ -111,14 +110,14 @@ export function DelayPanel({ data, onUpdate }: DelayPanelProps) {
 
             {mode === 'absolute' ? (
                 <div>
-                    <label className="block text-sm font-medium mb-2 text-gray-700">
+                    <label className="block text-sm font-medium mb-2 text-gray-700 font-sans">
                         Date & Time <span className="text-red-500">*</span>
                     </label>
                     <input
                         type="datetime-local"
                         value={absoluteTime}
                         onChange={(e) => setAbsoluteTime(e.target.value)}
-                        className="w-full text-sm"
+                        className="w-full text-sm font-sans text-black"
                         min={new Date().toISOString().slice(0, 16)}
                     />
                     {absoluteTime && new Date(absoluteTime) <= new Date() && (
@@ -127,19 +126,19 @@ export function DelayPanel({ data, onUpdate }: DelayPanelProps) {
                 </div>
             ) : (
                 <div className="space-y-2">
-                    <label className="block text-sm font-medium text-gray-700">Duration <span className="text-red-500">*</span></label>
-                    <div className="flex gap-2">
+                    <label className="block text-sm font-medium text-gray-700 font-sans">Duration <span className="text-red-500">*</span></label>
+                    <div className="flex gap-2 items-center">
                         <input
                             type="number"
                             value={relativeValue}
                             onChange={(e) => setRelativeValue(parseInt(e.target.value) || 0)}
                             min="1"
-                            className="flex-1 text-sm"
+                            className="flex-1 text-sm font-sans text-black"
                         />
                         <select
                             value={relativeUnit}
                             onChange={(e) => setRelativeUnit(e.target.value as any)}
-                            className="text-sm"
+                            className="text-sm font-sans text-black"
                         >
                             <option value="minutes">Minutes</option>
                             <option value="hours">Hours</option>
@@ -195,16 +194,16 @@ export function ConditionPanel({ data, onUpdate }: ConditionPanelProps) {
 
     return (
         <div className="p-6 space-y-4">
-            <h3 className="font-semibold text-base text-gray-900">Condition</h3>
+            <h3 className="font-semibold text-base text-gray-900 font-sans ">Condition</h3>
 
             <div>
-                <label className="block text-sm font-medium mb-2 text-gray-700">Logic</label>
+                <label className="block text-sm font-medium mb-2 text-gray-700 font-sans ">Logic</label>
                 <div className="flex gap-2 p-1 bg-gray-100 rounded-md">
                     <button
                         onClick={() => setLogic('AND')}
                         className={`flex-1 py-2 px-3 rounded text-sm font-medium transition-colors ${logic === 'AND'
-                                ? 'bg-white text-gray-900 shadow-sm'
-                                : 'bg-transparent text-gray-600 hover:text-gray-900'
+                                ? 'bg-white text-gray-900 shadow-sm font-sans '
+                                : 'bg-transparent text-gray-600 hover:text-gray-900 font-sans '
                             }`}
                     >
                         AND
@@ -212,8 +211,8 @@ export function ConditionPanel({ data, onUpdate }: ConditionPanelProps) {
                     <button
                         onClick={() => setLogic('OR')}
                         className={`flex-1 py-2 px-3 rounded text-sm font-medium transition-colors ${logic === 'OR'
-                                ? 'bg-white text-gray-900 shadow-sm'
-                                : 'bg-transparent text-gray-600 hover:text-gray-900'
+                                ? 'bg-white text-gray-900 shadow-sm font-sans '
+                                : 'bg-transparent text-gray-600 hover:text-gray-900 font-sans '
                             }`}
                     >
                         OR
@@ -222,11 +221,11 @@ export function ConditionPanel({ data, onUpdate }: ConditionPanelProps) {
             </div>
 
             <div className="space-y-2">
-                <label className="block text-sm font-medium text-gray-700">Rules</label>
+                <label className="block text-sm font-medium text-gray-700 font-sans ">Rules</label>
                 {rules.map((rule: any, index: number) => (
                     <div key={index} className="border border-gray-200 rounded-md p-3 space-y-2 bg-gray-50">
                         <div className="flex justify-between items-center">
-                            <span className="text-xs font-medium text-gray-600">Rule {index + 1}</span>
+                            <span className="text-xs font-medium text-gray-600 font-sans ">Rule {index + 1}</span>
                             {rules.length > 1 && (
                                 <button
                                     onClick={() => removeRule(index)}
@@ -236,11 +235,11 @@ export function ConditionPanel({ data, onUpdate }: ConditionPanelProps) {
                                 </button>
                             )}
                         </div>
-                        <div className="text-sm text-gray-600">Email</div>
+                        <div className="text-sm text-gray-600 font-sans ">Email</div>
                         <select
                             value={rule.operator}
                             onChange={(e) => updateRule(index, 'operator', e.target.value)}
-                            className="w-full text-sm"
+                            className="w-full text-sm font-sans text-black"
                         >
                             <option value="equals">equals</option>
                             <option value="not_equals">not equals</option>
@@ -253,7 +252,7 @@ export function ConditionPanel({ data, onUpdate }: ConditionPanelProps) {
                             value={rule.value}
                             onChange={(e) => updateRule(index, 'value', e.target.value)}
                             placeholder="Value"
-                            className="w-full text-sm"
+                            className="w-full text-sm font-sans text-black"
                         />
                     </div>
                 ))}
