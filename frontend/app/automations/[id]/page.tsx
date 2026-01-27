@@ -75,10 +75,10 @@ export default function AutomationEditorPage() {
                 <div className="max-w-full px-6 py-4">
                     <div className="flex items-center justify-between">
                         <div className="flex items-center gap-4">
-                            <Button variant="secondary" size="sm" onClick={() => router.push('/')}>
-                                ← Back
+                            <Button variant="secondary" className='font-sans' size="sm" onClick={() => router.push('/')}>
+                                ←  Back
                             </Button>
-                            <h1 className="text-lg font-semibold text-gray-900">{automation.name}</h1>
+                            <h1 className="text-lg font-semibold text-gray-900 font-sans">{automation.name}</h1>
                         </div>
                     </div>
                 </div>

@@ -100,7 +100,7 @@ export default function Home() {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="text-xl">Loading...</div>
+        <div className="text-xl font-sans">Loading...</div>
       </div>
     );
   }
@@ -111,16 +111,16 @@ export default function Home() {
       <div className="w-64 bg-white border-r border-gray-200 flex flex-col">
         {/* App Name */}
         <div className="px-6 py-5 border-b border-gray-200">
-          <h1 className="text-lg font-semibold text-gray-900">Automation Flow</h1>
+          <h1 className="text-lg font-semibold text-gray-900 font-sans">Automation Flow</h1>
         </div>
 
         {/* Navigation */}
         <nav className="flex-1 px-3 py-4 space-y-1">
-          <a href="#" className="flex items-center px-3 py-2 text-sm font-medium text-gray-600 rounded-md hover:bg-gray-50">
+          <a href="#" className="flex items-center px-3 py-2 text-sm font-medium text-gray-600 rounded-md hover:bg-gray-50 font-sans">
             <span className="mr-3">📊</span>
             Dashboard
           </a>
-          <a href="#" className="flex items-center px-3 py-2 text-sm font-medium text-indigo-600 bg-indigo-50 rounded-md">
+          <a href="#" className="flex items-center px-3 py-2 text-sm font-medium text-indigo-600 bg-indigo-50 rounded-md font-sans">
             <span className="mr-3">⚙️</span>
             Automations
           </a>
@@ -128,7 +128,7 @@ export default function Home() {
 
         {/* Bottom Section */}
         <div className="px-3 py-4 border-t border-gray-200">
-          <a href="#" className="flex items-center px-3 py-2 text-sm font-medium text-gray-600 rounded-md hover:bg-gray-50">
+          <a href="#" className="flex items-center px-3 py-2 text-sm font-medium text-gray-600 rounded-md hover:bg-gray-50 font-sans">
             <span className="mr-3">⚙️</span>
             Settings
           </a>
@@ -141,9 +141,9 @@ export default function Home() {
         <header className="bg-white border-b border-gray-200 px-8 py-4">
           <div className="flex items-center justify-between">
             <div>
-              <h2 className="text-2xl font-semibold text-gray-900">Automations</h2>
+              <h2 className="text-2xl font-semibold text-gray-900 font-sans">Automations</h2>
             </div>
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-4 font-sans">
               <Button onClick={() => setShowCreateDialog(true)}>
                 Create Automation
               </Button>
@@ -154,25 +154,25 @@ export default function Home() {
         {/* Main Content */}
         <main className="flex-1 overflow-y-auto px-8 py-6">
           <div className="mb-6">
-            <h3 className="text-lg font-semibold text-gray-900 mb-1">Email Workflows</h3>
-            <p className="text-sm text-gray-500">Manage your automated email sequences and triggers</p>
+            <h3 className="text-lg font-semibold text-gray-900 mb-1 font-sans">Email Workflows</h3>
+            <p className="text-sm text-gray-500 font-sans">Manage your automated email sequences and triggers</p>
           </div>
 
           {automations.length === 0 ? (
             <div className="bg-white rounded-lg border border-gray-200 p-12 text-center">
-              <h2 className="text-lg font-medium text-gray-900 mb-2">No automations yet</h2>
-              <p className="text-sm text-gray-500 mb-6">Create your first automation to get started</p>
-              <Button onClick={() => setShowCreateDialog(true)}>Create Automation</Button>
+              <h2 className="text-lg font-medium text-gray-900 mb-2 font-sans">No automations yet</h2>
+              <p className="text-sm text-gray-500 mb-6 font-sans">Create your first automation to get started</p>
+              <Button onClick={() => setShowCreateDialog(true)} className='font-sans'>Create Automation</Button>
             </div>
           ) : (
             <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
               <table className="w-full">
                 <thead className="bg-gray-50 border-b border-gray-200">
                   <tr>
-                    <th className="text-left px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-                    <th className="text-left px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Created</th>
-                    <th className="text-left px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Updated</th>
-                    <th className="text-right px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                    <th className="text-left px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider font-sans">Name</th>
+                    <th className="text-left px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider font-sans">Created</th>
+                    <th className="text-left px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider font-sans">Updated</th>
+                    <th className="text-right px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider font-sans">Actions</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200">
@@ -183,16 +183,16 @@ export default function Home() {
                           <div className="shrink-0 h-8 w-8 bg-indigo-100 rounded flex items-center justify-center mr-3">
                             <span className="text-indigo-600 text-sm font-medium">📧</span>
                           </div>
-                          <div className="font-medium text-gray-900">{automation.name}</div>
+                          <div className="font-medium text-gray-900 font-sans">{automation.name}</div>
                         </div>
                       </td>  
-                      <td className="px-6 py-4 text-sm text-gray-500">
+                      <td className="px-6 py-4 text-sm text-gray-500 font-sans">
                         {new Date(automation.createdAt).toLocaleDateString()}
                       </td>
-                      <td className="px-6 py-4 text-sm text-gray-500">
+                      <td className="px-6 py-4 text-sm text-gray-500 font-sans">
                         {new Date(automation.updatedAt).toLocaleDateString()}
                       </td>
-                      <td className="px-6 py-4 text-right">
+                      <td className="px-6 py-4 text-right font-sans">
                         <div className="inline-flex items-center justify-end space-x-2">
                           <Button onClick={() => router.push(`/automations/${automation._id}`)} size="sm" variant="success">Edit</Button>
                           <Button onClick={() => setTestDialog({ show: true, automation })} size="sm" variant="primary">Test</Button>
@@ -245,19 +245,19 @@ export default function Home() {
 
       {/* Test Dialog */}
       {testDialog.show && testDialog.automation && (
-        <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center p-4 z-50">
+        <div className="fixed inset-0 bg-black/40 backdrop-blur-sm bg-opacity-40 flex items-center justify-center p-4 z-50">
           <div className="bg-white rounded-lg p-6 max-w-md w-full border border-gray-200 shadow-lg">
-            <h2 className="text-lg font-semibold mb-4 text-gray-900">Test Automation</h2>
+            <h2 className="text-lg font-semibold mb-4 text-gray-900 font-sans">Test Automation</h2>
             <p className="text-sm text-gray-600 mb-4">
               Testing: <strong className="text-gray-900">{testDialog.automation.name}</strong>
             </p>
             <div className="mb-5">
-              <label className="block text-sm font-medium mb-2 text-gray-700">Test Email Address <span className="text-red-500">*</span></label>
+              <label className="block text-sm font-medium mb-2 text-gray-700 font-sans">Test Email Address <span className="text-red-500">*</span></label>
               <input
                 type="email"
                 value={testEmail}
                 onChange={(e) => setTestEmail(e.target.value)}
-                className="w-full"
+                className="w-full font-sans"
                 placeholder="test@example.com"
                 autoFocus
               />

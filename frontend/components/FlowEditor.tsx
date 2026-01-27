@@ -181,8 +181,8 @@ export default function FlowEditor({ automationId, initialData, onSave }: FlowEd
                     nodeTypes={nodeTypes}
                     fitView
                 >
-                        <Background color="#e5e7eb" gap={16} />
-                        <Controls />
+                        <Background gap={16} className='bg-gray-600' />
+                        <Controls className='text-black'/>
                         <MiniMap 
                             style={{ 
                                 right: 16, 
@@ -198,9 +198,9 @@ export default function FlowEditor({ automationId, initialData, onSave }: FlowEd
                 {/* Floating toolbar */}
                 <div className="absolute top-4 left-4 bg-white rounded-lg border border-gray-200 p-3 space-y-2 shadow-sm" style={{ minWidth: 160 }}>
                     <h3 className="font-medium text-xs text-gray-500 uppercase tracking-wide mb-2">Add Node</h3>
-                    <Button onClick={() => addNode('action')} className="w-full" size="sm" variant="secondary">Email Action</Button>
-                    <Button onClick={() => addNode('delay')} className="w-full" size="sm" variant="secondary">Delay</Button>
-                    <Button onClick={() => addNode('condition')} className="w-full" size="sm" variant="secondary">Condition</Button>
+                    <Button onClick={() => addNode('action')} className="w-full" size="sm" variant="success">Email Action</Button>
+                    <Button onClick={() => addNode('delay')} className="w-full" size="sm" variant="danger">Delay</Button>
+                    <Button onClick={() => addNode('condition')} className="w-full" size="sm" variant="primary">Condition</Button>
                 </div>
 
                 {/* Save button */}
@@ -234,7 +234,7 @@ export default function FlowEditor({ automationId, initialData, onSave }: FlowEd
                             />
                         )}
                         <div className="p-4 border-t border-gray-200">
-                            <Button onClick={deleteSelectedNode} variant="secondary" className="w-full">Delete Node</Button>
+                            <Button onClick={deleteSelectedNode} variant="danger" className="w-full">Delete Node</Button>
                         </div>
                     </div>
                 ) : (
