@@ -132,6 +132,7 @@ export default function FlowEditor({ automationId, initialData, onSave }: FlowEd
                 )
             );
             setSelectedNode(null);
+            setSidePanelOpen(false);
         },
         [setNodes]
     );
@@ -143,6 +144,7 @@ export default function FlowEditor({ automationId, initialData, onSave }: FlowEd
                 eds.filter((e) => e.source !== selectedNode.id && e.target !== selectedNode.id)
             );
             setSelectedNode(null);
+            setSidePanelOpen(false);
         }
     };
 
@@ -184,14 +186,8 @@ export default function FlowEditor({ automationId, initialData, onSave }: FlowEd
                 >
                         <Background gap={16} className='bg-gray-600' />
                         <Controls className='text-black'/>
-                        <MiniMap 
-                            style={{ 
-                                right: 16, 
-                                bottom: 16, 
-                                background: '#ffffff', 
-                                border: '1px solid #e5e7eb',
-                                borderRadius: '6px'
-                            }} 
+                        <MiniMap
+                            className="absolute right-4 bottom-4 bg-white border border-gray-200 rounded-md h-30 w-40 "
                             nodeColor="#d1d5db"
                         />
                 </ReactFlow>
@@ -231,13 +227,16 @@ export default function FlowEditor({ automationId, initialData, onSave }: FlowEd
                     onClick={() => setSidePanelOpen(false)}
                 />
             )}
-            <div className={`
-                fixed md:static inset-y-0 right-0 z-50
-                w-80 max-w-full bg-white border-l border-gray-200 overflow-y-auto
-                transform transition-transform duration-300 ease-in-out
-                ${sidePanelOpen ? 'translate-x-0' : 'translate-x-full md:translate-x-0'}
-                ${!selectedNode ? 'hidden md:block' : ''}
-            `}>
+            <div 
+                className={`
+                    fixed md:static inset-y-0 right-0 z-50
+                    w-80 max-w-full bg-white border-l border-gray-200 overflow-y-auto
+                    transform transition-transform duration-300 ease-in-out
+                    ${sidePanelOpen ? 'translate-x-0' : 'translate-x-full md:translate-x-0'}
+                    ${!selectedNode ? 'hidden md:block' : ''}
+                `}
+                onClick={(e) => e.stopPropagation()}
+            >
                 {selectedNode ? (
                     <div>
                         <div className="md:hidden flex items-center justify-between p-4 border-b border-gray-200">
@@ -272,11 +271,11 @@ export default function FlowEditor({ automationId, initialData, onSave }: FlowEd
                     </div>
                 ) : (
                     <div className="p-6 text-gray-500 text-sm">
-                        <p className="text-gray-900 font-medium mb-3">No node selected</p>
-                        <p className="mb-4">Select a node to configure it</p>
+                        <p className="text-gray-900 font-medium mb-3 font-sans">No node selected</p>
+                        <p className="mb-4 font-sans">Select a node to configure it</p>
                         <div className="space-y-2 text-xs">
                             <p className="font-medium text-gray-700">Tips:</p>
-                            <ul className="list-disc list-inside space-y-1 text-gray-600">
+                            <ul className="list-disc list-inside space-y-1 text-gray-600 font-sans">
                                 <li>Drag nodes to reposition</li>
                                 <li>Click nodes to configure</li>
                                 <li>Connect nodes by dragging from handles</li>
