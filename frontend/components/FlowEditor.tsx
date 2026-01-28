@@ -70,6 +70,7 @@ export default function FlowEditor({ automationId, initialData, onSave }: FlowEd
     );
     const [selectedNode, setSelectedNode] = useState<Node | null>(null);
     const [isSaving, setIsSaving] = useState(false);
+    const [sidePanelOpen, setSidePanelOpen] = useState(false);
 
     const onConnect = useCallback(
         (params: Connection) => {
@@ -169,7 +170,7 @@ export default function FlowEditor({ automationId, initialData, onSave }: FlowEd
     return (
         <div className="flex h-full">
             {/* Main canvas */}
-            <div className="flex-1 relative bg-gray-50">
+            <div className="flex-1 relative bg-gray-50 ">
                 <ReactFlow
                     nodes={nodes}
                     edges={edges}
@@ -196,25 +197,57 @@ export default function FlowEditor({ automationId, initialData, onSave }: FlowEd
                 </ReactFlow>
 
                 {/* Floating toolbar */}
-                <div className="absolute top-4 left-4 bg-white rounded-lg border border-gray-200 p-3 space-y-2 shadow-sm" style={{ minWidth: 160 }}>
-                    <h3 className="font-medium text-xs text-gray-500 uppercase tracking-wide mb-2">Add Node</h3>
-                    <Button onClick={() => addNode('action')} className="w-full" size="sm" variant="success">Email Action</Button>
-                    <Button onClick={() => addNode('delay')} className="w-full" size="sm" variant="danger">Delay</Button>
-                    <Button onClick={() => addNode('condition')} className="w-full" size="sm" variant="primary">Condition</Button>
+                <div className="absolute top-1 left-1 sm:top-4 sm:left-4 bg-white rounded-lg border border-gray-200 p-2 sm:p-3 space-y-2 shadow-sm" style={{ minWidth: 140, maxWidth: 160 }}>
+                    <h3 className="font-medium text-xs text-gray-500 uppercase tracking-wide mb-1 sm:mb-2">Add Node</h3>
+                    <Button onClick={() => addNode('action')} className="w-full text-xs" size="sm" variant="success">Email</Button>
+                    <Button onClick={() => addNode('delay')} className="w-full text-xs" size="sm" variant="danger">Delay</Button>
+                    <Button onClick={() => addNode('condition')} className="w-full text-xs" size="sm" variant="primary">Condition</Button>
                 </div>
 
                 {/* Save button */}
-                <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 z-50">
-                    <Button onClick={handleSave} disabled={isSaving} size="lg">
-                        {isSaving ? 'Saving...' : 'Save Flow'}
+                <div className="absolute bottom-4 sm:bottom-6 left-1/2 transform -translate-x-1/2 z-50">
+                    <Button onClick={handleSave} disabled={isSaving} size="sm" className="sm:text-base">
+                        {isSaving ? 'Saving...' : 'Save'}
                     </Button>
                 </div>
+
+                {/* Mobile panel toggle */}
+                {selectedNode && (
+                    <button
+                        onClick={() => setSidePanelOpen(true)}
+                        className="md:hidden absolute top-2 right-2 bg-white rounded-lg border border-gray-200 p-2 shadow-sm z-10"
+                    >
+                        <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
+                        </svg>
+                    </button>
+                )}
             </div>
 
             {/* Right sidebar */}
-            <div className="w-80 bg-white border-l border-gray-200 overflow-y-auto">
+            {sidePanelOpen && (
+                <div 
+                    className="fixed inset-0 bg-black/40 backdrop-blur-md bg-opacity-50 z-40 md:hidden" 
+                    onClick={() => setSidePanelOpen(false)}
+                />
+            )}
+            <div className={`
+                fixed md:static inset-y-0 right-0 z-50
+                w-80 max-w-full bg-white border-l border-gray-200 overflow-y-auto
+                transform transition-transform duration-300 ease-in-out
+                ${sidePanelOpen ? 'translate-x-0' : 'translate-x-full md:translate-x-0'}
+                ${!selectedNode ? 'hidden md:block' : ''}
+            `}>
                 {selectedNode ? (
                     <div>
+                        <div className="md:hidden flex items-center justify-between p-4 border-b border-gray-200">
+                            <h3 className="font-semibold text-gray-900">Configure Node</h3>
+                            <button onClick={() => setSidePanelOpen(false)} className="text-gray-500 hover:text-gray-700">
+                                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </button>
+                        </div>
                         {selectedNode.type === 'action' && (
                             <ActionPanel
                                 data={selectedNode.data}

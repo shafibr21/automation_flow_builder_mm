@@ -72,19 +72,19 @@ export default function AutomationEditorPage() {
     return (
         <div className="h-screen flex flex-col bg-[#F8F9FB]">
             <div className="border-b border-gray-200 bg-white">
-                <div className="max-w-full px-6 py-4">
-                    <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-4">
-                            <Button variant="secondary" className='font-sans' size="sm" onClick={() => router.push('/')}>
-                                ←  Back
+                <div className="max-w-full px-3 sm:px-4 md:px-6 py-3 sm:py-4">
+                    <div className="flex items-center justify-between gap-2">
+                        <div className="flex items-center gap-2 sm:gap-4 min-w-0 flex-1">
+                            <Button variant="secondary" className='font-sans shrink-0' size="sm" onClick={() => router.push('/')}>
+                                ← Back
                             </Button>
-                            <h1 className="text-lg font-semibold text-gray-900 font-sans">{automation.name}</h1>
+                            <h1 className="text-sm sm:text-base md:text-lg font-semibold text-gray-900 font-sans truncate">{automation.name}</h1>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div className="flex-1 overflow-hidden">
+            <div className="flex-1 overflow-hidden h-full w-full">
                 <FlowEditor
                     automationId={automationId}
                     initialData={{
