@@ -4,7 +4,7 @@ import { Handle, Position } from '@xyflow/react';
 
 export function StartNode() {
     return (
-        <div className="px-5 py-3 text-gray-700 rounded-full border border-gray-500 bg-blue-300">
+        <div className="px-2 py-1 sm:px-5 sm:py-3 text-gray-700 rounded-full border border-gray-500 bg-blue-300">
             <div className="font-medium text-sm text-center font-sans">Start</div>
             <Handle type="source" position={Position.Bottom} className="w-3 h-3" />
         </div>
@@ -13,7 +13,7 @@ export function StartNode() {
 
 export function EndNode() {
     return (
-        <div className="px-5 py-3 bg-red-300 text-gray-700 rounded-full border border-gray-500">
+        <div className="px-2 py-1 sm:px-5 sm:py-3 bg-red-300 text-gray-700 rounded-full border border-gray-500">
             <Handle type="target" position={Position.Top} className="w-3 h-3" />
             <div className="font-medium text-sm text-center font-sans">End</div>
         </div>
@@ -22,7 +22,7 @@ export function EndNode() {
 
 export function ActionNode({ data, selected }: { data: any; selected: boolean }) {
     return (
-        <div className={`px-4 py-3 bg-white rounded-lg border-2 ${selected ? 'border-indigo-500 shadow-sm' : 'border-gray-200'
+        <div className={`px-2 py-1 sm:px-4 md:py-3 bg-white rounded-lg border-2 ${selected ? 'border-indigo-500 shadow-sm' : 'border-gray-200'
             } min-w-70`}>
             <Handle type="target" position={Position.Top} className="w-3 h-3" />
             <div className="font-medium text-sm mb-1 text-gray-900 font-sans">Send Email</div>
@@ -53,7 +53,7 @@ export function DelayNode({ data, selected }: { data: any; selected: boolean }) 
     };
 
     return (
-        <div className={`px-4 py-3 bg-white rounded-lg border-2 ${selected ? 'border-indigo-500 shadow-sm' : 'border-gray-200'
+        <div className={`px-2 py-1 sm:px-4 md:py-3 bg-white rounded-lg border-2 ${selected ? 'border-indigo-500 shadow-sm' : 'border-gray-200'
             } min-w-50`}>
             <Handle type="target" position={Position.Top} className="w-3 h-3" />
             <div className="font-medium text-sm mb-1 text-gray-900 font-sans">Delay</div>
@@ -69,7 +69,7 @@ export function ConditionNode({ data, selected }: { data: any; selected: boolean
     const ruleCount = data.rules?.length || 0;
 
     return (
-        <div className={`px-4 py-3 bg-white rounded-lg border-2 ${selected ? 'border-indigo-500 shadow-sm' : 'border-gray-200'
+        <div className={`px-2 py-1 sm:px-4 md:py-3 bg-white rounded-lg border-2 ${selected ? 'border-indigo-500 shadow-sm' : 'border-gray-200'
             } min-w-50`}>
             <Handle type="target" position={Position.Top} className="w-3 h-3" />
             <div className="font-medium text-sm mb-1 text-gray-900 font-sans">Condition</div>
