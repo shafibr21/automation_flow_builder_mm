@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { apiClient } from '@/lib/api';
 import { Automation } from '@/lib/types';
 import Button from '@/components/ui/Button';
+import Image from 'next/image';
 
 export default function Home() {
   const router = useRouter();
@@ -110,7 +111,14 @@ export default function Home() {
       {/* Left Sidebar */}
       <div className="w-64 bg-white border-r border-gray-200 flex flex-col">
         {/* App Name */}
-        <div className="px-6 py-5 border-b border-gray-200">
+        <div className="px-6 py-5 border-b border-gray-200 flex items-center">
+          <Image
+            src="/logo.png"
+            alt="Automation Flow Builder"
+            width={25}
+            height={25}
+            className="inline-block mr-2"
+          />
           <h1 className="text-lg font-semibold text-gray-900 font-sans">Automation Flow</h1>
         </div>
 
